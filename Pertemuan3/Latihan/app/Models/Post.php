@@ -22,28 +22,34 @@ class Post extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function scopeFilter(Builder $query, array $filters): Void
+    public function user(): BelongsTo
     {
-        $query->when(
-            $filters['search'] ?? false,
-            fn($query, $search) =>
-                $query->where('title', 'like', '%'.$search)
-        );
-        
-        $query->when(
-            $filters['category'] ?? false,
-            fn($query, $category) =>
-            $query->whereHas('category', fn($query) =>
-            $query->where('slug', $category)
-            )
-        );
-
-        $query->when(
-            $filters['author'] ?? false,
-            fn($query, $author) =>
-            $query->whereHas('author', fn($query) =>
-            $query->where('username', $author)
-            )
-        );
+        return $this->belongsTo(User::class);
     }
+
+  public function scopeFilter(Builder $query, array $filters): void
+{
+    $query->when(
+        $filters['search'] ?? false,
+        fn($query, $search) =>
+            $query->where('title', 'like', '%'.$search.'%')
+    );
+
+    $query->when(
+        $filters['category'] ?? false,
+        fn($query, $category) =>
+            $query->whereHas('category', fn($query) =>
+                $query->where('slug', $category)
+            )
+    );
+
+    $query->when(
+        $filters['author'] ?? false,
+        fn($query, $author) =>
+            $query->whereHas('author', fn($query) =>
+                $query->where('username', $author)
+            )
+    );
+}
+
 }

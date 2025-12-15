@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,15 +16,16 @@ class PostFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-{
-    return [
-        'user_id' => \App\Models\User::factory(),
-        'category_id' => \App\Models\Category::factory(),
-        'title' => $this->faker->sentence(),
-        'slug' => $this->faker->slug(),
-        'excerpt' => $this->faker->paragraph(),
-        'body' => $this->faker->text(1000),
-    ];
-}
-
+    {
+        $title = fake()->sentence(4);
+        return [
+            'user_id' => \App\Models\User::factory(),
+            'category_id' => \App\Models\Category::factory(),
+            'title' => $title,
+            'slug' => Str::slug($title),
+            'excerpt' => fake()->paragraph(),
+            'body' => fake()->paragraphs(3, true),
+            'image' => null,
+        ];
+    }
 }

@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Daftar Categories</title>
-</head>
-<body>
-
-<h1>Daftar Categories</h1>
-
-@foreach ($categories as $category)
-    <article>
-        <h2>{{ $category->name }}</h2>
-        <p>Slug: {{ $category->slug }}</p>
-    </article>
-@endforeach
-
-</body>
-</html>
+<x-layout>
+    <x-slot:title>
+        Home
+    </x-slot:title>
+    <x-slot:content>
+        <h1 class="text-5xl font-bold">Daftar Posts</h1>
+        
+        @foreach ($categories as $category)
+        <br>
+        <article>
+            <h2 class="font-bold underline">{{ $category->name }}</h2>
+        </article>
+        <br>
+        @endforeach
+    </x-slot:content>
+</x-layout>

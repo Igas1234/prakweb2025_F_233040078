@@ -3,11 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Category;
 use App\Models\Post;
-
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,23 +15,17 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-  public function run(): void
-{
-    // 5 users
-    \App\Models\User::factory(5)->create();
-
-    // 2 categories
-    \App\Models\Category::factory()->create([
-        'name' => 'Programming',
-        'slug' => 'programming'
-    ]);
-
-    \App\Models\Category::factory()->create([
-        'name' => 'Design',
-        'slug' => 'design'
-    ]);
-
-    // 10 posts
-    \App\Models\Post::factory(10)->create();
-}
+    public function run(): void
+    {
+        for ($i = 1; $i <= 5; $i++) {
+            User::create([
+                'name' => 'User ' . $i,
+                'username' => 'user' . $i,
+                'email' => 'user' . $i . '@example.com',
+                'password' => bcrypt('password'),
+            ]);
+        }
+        Category::factory(2)->create();
+        Post::factory(10)->recycle(User::all())->recycle(Category::all())->create();
+    }
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+
+    <h1 id="judul">Hello World!</h1>
+
+    <p id="p">paragraf 1</p>
+
+    <button id="ubah">Ubah P1</button>
+
+    <script>
+        // seleksi tag button
+        const btn = document.getElementById('ubah');
+
+        // seleksi tag paragraf
+        const p = document.getElementById('p');
+
+        function ubahParaf() {
+            // ubah background paragraf menjadi merah
+            p.style.backgroundColor = 'red';
+        }
+
+        // ketika btn di klik maka panggil function ubahParaf
+        btn.onclick = ubahParaf;
+    </script>
+
+</body>
+</html>
